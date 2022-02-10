@@ -1,5 +1,5 @@
 
-// @ts-nocheck
+
 import React from "react";
 import Authorization from "./components/authorization/Authorization";
 import Registration from "./components/registration/Registration";
@@ -12,7 +12,7 @@ function App() {
  
   const [token, setToken] = useState({ token: "" });
   
-  function getTokenFromСhildComponent(token) {
+  function getTokenFromСhildComponent(token:string) {
     setToken({ token: token});
   }
 
@@ -26,9 +26,9 @@ function App() {
     token.token === undefined ||
     token.token === "error"
   ) {
-    return <RegistrOrAuth token={token.token} />;
+    return <RegistrOrAuth />;
   } else if (token.token === "registration") {
-    return <Registration token={token.token} />;
+    return <Registration/>;
   } else if (token.token === "authorization") {
     return <Authorization token={token.token} />;
   } else {

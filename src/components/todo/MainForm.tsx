@@ -6,6 +6,14 @@ import { API } from "../../API/API";
 import { url } from "../../service/index";
 import { TokenContext } from "../../service/context";
 
+
+type obj = {
+  name:string,
+  id:string,
+  key: string
+  checked: boolean,
+  
+}
 const api = new API(url);
 
 function MainForm (){
@@ -27,7 +35,7 @@ function MainForm (){
   }
 
   async function createTask () {
-    const input = ref.current?.value;
+    const input:string|undefined = ref.current?.value;
     if (input.trim() !== "") {
       
       await api.callAPI("api/task/create", "POST", token, {
@@ -44,7 +52,7 @@ function MainForm (){
         setDataTodos({...dataTodos,  todos: await callAPI });
       }
     }
-    ref.current.value = "";
+    (ref.current as HTMLInputElement).value  = "";
   }
   function logOut (){
     document.cookie = "token=Invalid token";
@@ -64,15 +72,15 @@ function MainForm (){
         <section>
           <h1>Todo List</h1>
           <ul className="listItems">
-            {dataTodos.todos.map((el) => {
+            {dataTodos.todos.map((el:obj) => {
               return (
                 <Task
                   name={el.name}
                   id={el.id}
                   key={el.id}
                   checked={el.checked}
-                  token={token}
-                  getToken={catchToken}
+                  // token={token}
+                  // getToken={catchToken}
                 />
               );
             })}

@@ -8,9 +8,10 @@ const api = new API(url);
 type PropsTask = {
   name: string,
   checked: boolean,
-  id: string
+  id: string,
+  
 }
-function Task({ name, checked, id }:PropsTask) {
+function Task({ name, checked, id }:PropsTask){
   const { token, getToken } = useContext(TokenContext);
   const [dataTask, setDataTask] = useState({
     checked: checked,
@@ -38,7 +39,7 @@ function Task({ name, checked, id }:PropsTask) {
 
   async function saveTaskСhanges() {
     setDataTask({ ...dataTask, changeDisplay: "none" });
-    const text:any = document.getElementById(id).children[3].value;
+    const text:any = (document.getElementById(id)?.children[3] as HTMLInputElement).value;
 
     if (text.trim() !== "") {
       setDataTask(() => {
@@ -80,10 +81,11 @@ function Task({ name, checked, id }:PropsTask) {
   return (
     <>
       <li
-        className="parentPosition"
         id={id}
-        className={dataTask.delete ? "deleted" : null}>
-        <p className={dataTask.checked ? "pCheck" : null}>{dataTask.name}</p>
+
+        //`parentPosition ${ }`
+        className={dataTask.delete ? "deleted parentPosition" : "parentPosition"}>
+        <p className={dataTask.checked ? "pCheck" : undefined}>{dataTask.name}</p>
         <input
           className="check"
           type="checkbox"

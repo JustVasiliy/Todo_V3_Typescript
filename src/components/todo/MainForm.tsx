@@ -36,10 +36,10 @@ function MainForm (){
 
   async function createTask () {
     const input:string|undefined = ref.current?.value;
-    if (input.trim() !== "") {
+    if (input?.trim() !== "") {
       
       await api.callAPI("api/task/create", "POST", token, {
-        name: input.trim(),
+        name: input?.trim(),
         checked: false,
         deleted: false,
         token: token,

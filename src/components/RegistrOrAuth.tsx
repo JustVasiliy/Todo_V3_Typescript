@@ -9,7 +9,6 @@ const RegistrOrAuth = ()=> {
         <div className="containerAOR">
           <a
             className="AOR"
-            // to="/registration"
             onClick={() => {
               document.cookie = "token=registration";
               window.location.reload();
@@ -18,7 +17,6 @@ const RegistrOrAuth = ()=> {
           </a>
           <a
             className="AOR"
-            // to="/authorization"
             onClick={() => {
               document.cookie = "token=authorization";
               window.location.reload();

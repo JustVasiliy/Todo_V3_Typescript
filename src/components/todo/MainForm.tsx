@@ -16,15 +16,15 @@ type obj = {
 }
 const api = new API(url);
 
-function MainForm (){
+const MainForm =() =>{
   const {getToken, token} = useContext(TokenContext);
   
   const [dataTodos, setDataTodos] = useState({cheked: false, todos:[]});
   const ref = useRef<HTMLInputElement>(null)
-  function catchToken (text:string){
+  const catchToken = (text:string)=>{
     getToken(text);
   }
-  async function getTasks (){
+  const getTasks = async ()=>{
     const callAPI = await api.callAPI("api/task/get", "GET", token);
     if (callAPI.message === "Invalid token") {
       document.cookie = "token=Invalid token";
@@ -34,7 +34,7 @@ function MainForm (){
     }
   }
 
-  async function createTask () {
+  const createTask = async() => {
     const input:string|undefined = ref.current?.value;
     if (input?.trim() !== "") {
       
@@ -54,7 +54,7 @@ function MainForm (){
     }
     (ref.current as HTMLInputElement).value  = "";
   }
-  function logOut (){
+  const logOut =()=>{
     document.cookie = "token=Invalid token";
     catchToken("Invalid token");
   }

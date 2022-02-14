@@ -8,18 +8,18 @@ import RegistrOrAuth from "./components/RegistrOrAuth";
 import { getCookie } from "./service/getCookie";
 import { useState, useEffect, useContext } from "react";
 import {  TokenContext } from "./service/context";
-function App() {
+const App = () => {
  
   const [token, setToken] = useState({ token: "" });
   
-  function getTokenFromСhildComponent(token:string) {
+  const getTokenFromСhildComponent = (token:string) => {
     setToken({ token: token});
   }
 
   useEffect(() => {
-    setToken({ token: getCookie("token") });
+    setToken({ token: `${getCookie("token")}` });
   }, []);
-  console.log(token)
+  
   if (
     token.token === "Invalid token" ||
     token.token === "" ||

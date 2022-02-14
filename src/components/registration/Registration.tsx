@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 const api = new API(url);
 
-function Registration () {
+const Registration = () => {
   
   const [stateReg, setStateReg] = useState({
     name: "",
@@ -17,7 +17,7 @@ function Registration () {
     nickname: "",
     password: "",
   })
-  async function handleFormSubmit () {
+  const handleFormSubmit = async() => {
     const name = stateReg.name;
     const surname = stateReg.surname;
     const nickname = stateReg.nickname;
@@ -46,7 +46,7 @@ function Registration () {
       window.location.reload();
     }
   };
-  function getInputData (value:string, nameInput:string) {
+  const getInputData = (value:string, nameInput:string) => {
     if (nameInput === "name") {
       setStateReg({...stateReg, name:value });
     } else if (nameInput === "surname") {

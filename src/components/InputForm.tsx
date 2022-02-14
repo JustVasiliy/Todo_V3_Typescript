@@ -10,13 +10,13 @@ type PropsInputForm ={
   forInput: string,
   style: string
 }
-function InputForm ({placeholder, name, type, labelText, fun, forInput, style}: PropsInputForm){
+const InputForm = ({placeholder, name, type, labelText, fun, forInput, style}: PropsInputForm) => {
   const [dataInput, setDataInput] = useState({
     inputValue: ''
 });
 
   const inputRef = useRef<HTMLInputElement>(null)
-  function setInputValue (e:any){
+  const setInputValue = (e:any)=>{
     const {value} = e.target;
    
     setDataInput((prevState) => {

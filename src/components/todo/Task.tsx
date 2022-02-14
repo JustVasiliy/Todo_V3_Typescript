@@ -11,7 +11,7 @@ type PropsTask = {
   id: string,
   
 }
-function Task({ name, checked, id }:PropsTask){
+const Task = ({ name, checked, id }:PropsTask)=>{
   const { token, getToken } = useContext(TokenContext);
   const [dataTask, setDataTask] = useState({
     checked: checked,
@@ -20,7 +20,7 @@ function Task({ name, checked, id }:PropsTask){
     delete: false,
   });
 
-  async function completeTask() {
+  const completeTask = async ()=>{
     let isCheck = dataTask.checked;
     setDataTask({ ...dataTask, checked: !isCheck });
 
@@ -37,9 +37,9 @@ function Task({ name, checked, id }:PropsTask){
     }
   }
 
-  async function saveTaskСhanges() {
+  const saveTaskСhanges = async()=> {
     setDataTask({ ...dataTask, changeDisplay: "none" });
-    const text:any = (document.getElementById(id)?.children[3] as HTMLInputElement).value;
+    const text:string|undefined = (document.getElementById(id)?.children[3] as HTMLInputElement).value;
 
     if (text.trim() !== "") {
       setDataTask(() => {
@@ -58,14 +58,14 @@ function Task({ name, checked, id }:PropsTask){
 
       if ((await status.message) === "Invalid token") {
         document.cookie = "token=Invalid token";
-        // setDataTask("Invalid token");
+        
       }
     }
   }
-  function changeTask() {
+  const changeTask = () => {
     setDataTask({ ...dataTask, changeDisplay: "block" });
   }
-  async function deleteTask() {
+  const deleteTask = async() => {
     setDataTask({ ...dataTask, delete: true });
 
     const callAPI = await api.callAPI("api/task/delete", "DELETE", token, {

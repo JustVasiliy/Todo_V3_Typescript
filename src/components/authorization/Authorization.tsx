@@ -11,13 +11,13 @@ const api = new API(url);
 type PropsAuthorization = {
   token: string
 }
-function Authorization({token}:PropsAuthorization) {
+const Authorization = ({token}:PropsAuthorization) => {
   
   const [dataAuth, setDataAuth] = useState({
     nickname: "",
     password: "",
   });
-  async function handleFormSubmit() {
+  const handleFormSubmit = async () =>{
     const nickname = dataAuth.nickname;
     const password = dataAuth.password;
 
@@ -35,7 +35,7 @@ function Authorization({token}:PropsAuthorization) {
       }
     }
   }
-  function getDataInput(value:string, nameInput:string) {
+  const getDataInput = (value:string, nameInput:string) => {
     if (nameInput === "nickname") {
       setDataAuth({ ...dataAuth, nickname: value });
     } else if (nameInput === "password") {

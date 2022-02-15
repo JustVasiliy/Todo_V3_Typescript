@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { Ref, useRef, useState } from "react";
 import "../../dist/css/style.css";
 
 type PropsInputForm ={

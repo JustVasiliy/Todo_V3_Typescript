@@ -18,10 +18,10 @@ const Registration = () => {
     password: "",
   })
   const handleFormSubmit = async() => {
-    const name = stateReg.name;
-    const surname = stateReg.surname;
-    const nickname = stateReg.nickname;
-    const password = stateReg.password;
+    const name:string | undefined = stateReg.name;
+    const surname:string | undefined = stateReg.surname;
+    const nickname:string | undefined = stateReg.nickname;
+    const password:string | undefined = stateReg.password;
     
     if (
       name.trim() !== "" ||

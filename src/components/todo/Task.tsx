@@ -21,7 +21,7 @@ const Task = ({ name, checked, id }:PropsTask)=>{
   });
 
   const completeTask = async ()=>{
-    let isCheck = dataTask.checked;
+    let isCheck:boolean | undefined = dataTask.checked;
     setDataTask({ ...dataTask, checked: !isCheck });
 
     const callAPI = await api.callAPI("api/task/put", "PUT", token, {
@@ -62,7 +62,7 @@ const Task = ({ name, checked, id }:PropsTask)=>{
       }
     }
   }
-  const changeTask = () => {
+  const changeTask = ():void => {
     setDataTask({ ...dataTask, changeDisplay: "block" });
   }
   const deleteTask = async() => {
@@ -74,7 +74,7 @@ const Task = ({ name, checked, id }:PropsTask)=>{
     const status = await callAPI.json();
     if ((await status.message) === "Invalid token") {
       document.cookie = "token=Invalid token";
-      // setDataTask("Invalid token");
+      
     }
   }
 
@@ -82,8 +82,6 @@ const Task = ({ name, checked, id }:PropsTask)=>{
     <>
       <li
         id={id}
-
-        //`parentPosition ${ }`
         className={dataTask.delete ? "deleted parentPosition" : "parentPosition"}>
         <p className={dataTask.checked ? "pCheck" : undefined}>{dataTask.name}</p>
         <input

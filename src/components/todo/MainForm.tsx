@@ -7,7 +7,7 @@ import { url } from "../../service/index";
 import { TokenContext } from "../../service/context";
 
 
-type obj = {
+type elementForRender = {
   name:string,
   id:string,
   key: string
@@ -54,7 +54,7 @@ const MainForm =() =>{
     }
     (ref.current as HTMLInputElement).value  = "";
   }
-  const logOut =()=>{
+  const logOut =():void=>{
     document.cookie = "token=Invalid token";
     catchToken("Invalid token");
   }
@@ -72,15 +72,13 @@ const MainForm =() =>{
         <section>
           <h1>Todo List</h1>
           <ul className="listItems">
-            {dataTodos.todos.map((el:obj) => {
+            {dataTodos.todos.map((el:elementForRender) => {
               return (
                 <Task
                   name={el.name}
                   id={el.id}
                   key={el.id}
                   checked={el.checked}
-                  // token={token}
-                  // getToken={catchToken}
                 />
               );
             })}

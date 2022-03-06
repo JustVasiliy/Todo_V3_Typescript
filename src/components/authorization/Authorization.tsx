@@ -1,18 +1,18 @@
+
 import React, { useContext } from "react";
 import "../../../dist/css/style.css";
 //@ts-ignore
-import { API } from "../../API/API.js";
+import { API } from "../../API/API";
 import { url } from "../../service/index";
 import InputForm from "../InputForm";
 import { useState } from "react";
 import { getCookie } from "../../service/getCookie";
-// import { TokenContext } from "../../service/context";
+
 const api = new API(url);
 type PropsAuthorization = {
   token: string
 }
 const Authorization = ({token}:PropsAuthorization) => {
-  
   const [dataAuth, setDataAuth] = useState({
     nickname: "",
     password: "",
@@ -42,8 +42,9 @@ const Authorization = ({token}:PropsAuthorization) => {
       setDataAuth({ ...dataAuth, password: value });
     }
   }
-
+  
   return (
+    
     <>
       <form
         className="Auth"

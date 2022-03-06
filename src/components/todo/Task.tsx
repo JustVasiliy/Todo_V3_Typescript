@@ -1,9 +1,12 @@
+
 import React, { useContext, useEffect, useState } from "react";
 import "../../../dist/css/style.css";
 //@ts-ignore
 import { API } from "../../API/API";
 import { url } from "../../service/index";
 import { TokenContext } from "../../service/context";
+import {useDispatch, useSelector, RootStateOrAny} from "react-redux"
+
 const api = new API(url);
 type PropsTask = {
   name: string,
@@ -12,14 +15,17 @@ type PropsTask = {
   
 }
 const Task = ({ name, checked, id }:PropsTask)=>{
-  const { token, getToken } = useContext(TokenContext);
+  const dispatch = useDispatch();
+  const token = useSelector((state: RootStateOrAny)=> state.token);
   const [dataTask, setDataTask] = useState({
     checked: checked,
     changeDisplay: "none",
     name: name,
     delete: false,
   });
-
+  const catchToken = (text: string | undefined) => {    
+    dispatch({type: "ADD_TOKEN", payload: text})
+  }
   const completeTask = async ()=>{
     let isCheck:boolean | undefined = dataTask.checked;
     setDataTask({ ...dataTask, checked: !isCheck });
@@ -33,7 +39,7 @@ const Task = ({ name, checked, id }:PropsTask)=>{
     const status = await callAPI.json();
     if ((await status.message) === "Invalid token") {
       document.cookie = "token=Invalid token";
-      getToken("Invalid token");
+      catchToken("Invalid token");
     }
   }
 

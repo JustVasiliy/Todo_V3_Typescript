@@ -8,38 +8,45 @@ import RegistrOrAuth from "./components/RegistrOrAuth";
 import { getCookie } from "./service/getCookie";
 import { useState, useEffect, useContext } from "react";
 import {  TokenContext } from "./service/context";
-const App = () => {
- 
-  const [token, setToken] = useState({ token: "" });
+//@ts-ignore
+import {API} from './API/API';
+import {url} from "./service/index"
+import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
+const api = new API(url);
+const App = () => {  
+  const dispatch = useDispatch();
   
-  const getTokenFromСhildComponent = (token:string) => {
-    setToken({ token: token});
+  const token: string | undefined = useSelector((state: RootStateOrAny)=> state.token);
+  const catchToken = () => {
+    const text = getCookie("token");
+    
+    dispatch({type: "ADD_TOKEN", payload: text})
   }
+  
 
   useEffect(() => {
-    setToken({ token: `${getCookie("token")}` });
+    catchToken();
   }, []);
   
   if (
-    token.token === "Invalid token" ||
-    token.token === "" ||
-    token.token === undefined ||
-    token.token === "error"
+    token === "Invalid token" ||
+    token === "" ||
+    token === undefined ||
+    token === "error"
   ) {
+    catchToken();
+   
     return <RegistrOrAuth />;
-  } else if (token.token === "registration") {
+  } else if (token === "registration") {
     return <Registration/>;
-  } else if (token.token === "authorization") {
-    return <Authorization token={token.token} />;
+  } else if (token === "authorization") {
+    return <Authorization token={token} />;
   } else {
+    catchToken()
     return (
-      <TokenContext.Provider value = {{
-        token: token.token,
-        getToken: getTokenFromСhildComponent,
-      }}>
-        
+     
         <MainForm/>
-      </TokenContext.Provider>
+      
     );
   }
 }

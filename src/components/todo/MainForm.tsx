@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useRef, useContext } from "react";
 import "../../../dist/css/style.css";
 import Task from "./Task";
@@ -6,6 +7,7 @@ import { API } from "../../API/API";
 import { url } from "../../service/index";
 import { TokenContext } from "../../service/context";
 
+import {useDispatch, useSelector, RootStateOrAny} from "react-redux"
 
 type elementForRender = {
   name:string,
@@ -17,12 +19,14 @@ type elementForRender = {
 const api = new API(url);
 
 const MainForm =() =>{
-  const {getToken, token} = useContext(TokenContext);
-  
+ 
+  const dispatch = useDispatch();
+  const token = useSelector((state: RootStateOrAny)=> state.token);
   const [dataTodos, setDataTodos] = useState({cheked: false, todos:[]});
   const ref = useRef<HTMLInputElement>(null)
-  const catchToken = (text:string)=>{
-    getToken(text);
+ 
+  const catchToken = (text: string | undefined) => {    
+    dispatch({type: "ADD_TOKEN", payload: text})
   }
   const getTasks = async ()=>{
     const callAPI = await api.callAPI("api/task/get", "GET", token);
